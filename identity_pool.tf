@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "identity_unauthenticated" {
 
 module "identity_pool" {
   for_each               = local.identity_pools
-  source                 = "../identity_pool"
+  source                 = "github.com/dan-drew/terraform-aws-identity-pool"
   name                   = "${var.name}-${each.key}${var.name_suffix}"
   unauthenticated_policy = data.aws_iam_policy_document.identity_unauthenticated[each.key]
   authenticated_policy   = data.aws_iam_policy_document.identity_authenticated[each.key]
