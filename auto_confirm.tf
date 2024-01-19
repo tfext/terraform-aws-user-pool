@@ -4,7 +4,7 @@ locals {
 
 module "auto_confirm_trigger" {
   for_each   = local.auto_confirm
-  source     = "github.com/dan-drew/terraform-aws-lambda-function"
+  source     = "github.com/tfext/terraform-aws-lambda-function"
   name       = "${var.name}-autoconfirm${var.name_suffix}"
   source_dir = "${path.module}/auto_confirm_lambda"
   entrypoint = "index"
