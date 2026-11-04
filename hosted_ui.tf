@@ -5,7 +5,13 @@ locals {
 }
 
 resource "aws_cognito_user_pool_ui_customization" "main" {
+  count        = local.custom_ui_count
   user_pool_id = aws_cognito_user_pool.pool.id
   image_file   = local.has_auth_logo ? filebase64(var.auth_logo) : null
   css          = local.has_auth_css ? var.auth_css : null
+}
+
+moved {
+  from = aws_cognito_user_pool_ui_customization.main
+  to   = aws_cognito_user_pool_ui_customization.main[0]
 }

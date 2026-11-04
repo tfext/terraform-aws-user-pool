@@ -1,6 +1,7 @@
 locals {
   domain_count = try(length(var.auth_domain) > 0, false) ? 1 : 0
   custom_domain_count = (local.domain_count > 0) && try(length(var.certificate_arn) > 0, false) ? 1 : 0
+  dns_record_count    = local.custom_domain_count * (var.domain_zone_id == null ? 0 : 1)
 }
 
 resource "aws_cognito_user_pool_domain" "domain" {
@@ -11,7 +12,7 @@ resource "aws_cognito_user_pool_domain" "domain" {
 }
 
 resource "aws_route53_record" "domain" {
-  count   = local.custom_domain_count
+  count   = local.dns_record_count
   name    = var.auth_domain
   zone_id = var.domain_zone_id
   type    = "A"
