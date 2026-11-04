@@ -8,7 +8,7 @@ module "auto_confirm_trigger" {
   name       = "${var.name}-autoconfirm${var.name_suffix}"
   source_dir = "${path.module}/auto_confirm_lambda"
   entrypoint = "index"
-  runtime    = "nodejs18.x"
+  runtime    = "nodejs22.x"
 }
 
 resource "aws_lambda_permission" "auto_confirm_trigger" {
